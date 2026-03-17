@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { rebootNode, restartSystemService } from '../../api.ts'
 
-const SERVICES = ['ingest', 'scope', 'decimator', 'display'] as const
+const SERVICES = ['lgl-node', 'lgl-node-display', 'lgl-node-scope'] as const
 
 export default function SystemTab({ nodeId }: { nodeId: string }) {
   const [confirmReboot, setConfirmReboot] = useState(false)

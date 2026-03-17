@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { setScopeView, setScopeBrightness, quitScope } from '../../api.ts'
 
-const VIEWS = ['waveform', 'vectorscope', 'histogram', 'parade'] as const
+const VIEWS = ['combined', 'waveform', 'vectorscope', 'preview', 'rgb_parade', 'histogram', 'audio'] as const
 
 export default function ScopeTab({ nodeId }: { nodeId: string }) {
   const [activeView, setActiveView] = useState<string | null>(null)
-  const [brightness, setBrightness] = useState(80)
+  const [brightness, setBrightness] = useState(128)
   const [busy, setBusy] = useState(false)
   const [ok, setOk] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -50,6 +50,16 @@ export default function ScopeTab({ nodeId }: { nodeId: string }) {
     }
   }
 
+  const VIEW_LABELS: Record<string, string> = {
+    combined: 'Combined',
+    waveform: 'Waveform',
+    vectorscope: 'Vectorscope',
+    preview: 'Preview',
+    rgb_parade: 'RGB Parade',
+    histogram: 'Histogram',
+    audio: 'Audio',
+  }
+
   return (
     <div>
       <h3
@@ -81,10 +91,9 @@ export default function ScopeTab({ nodeId }: { nodeId: string }) {
               fontWeight: 600,
               fontSize: 13,
               cursor: 'pointer',
-              textTransform: 'capitalize',
             }}
           >
-            {v}
+            {VIEW_LABELS[v]}
           </button>
         ))}
       </div>
@@ -106,13 +115,13 @@ export default function ScopeTab({ nodeId }: { nodeId: string }) {
         <input
           type="range"
           min={0}
-          max={100}
+          max={255}
           value={brightness}
           onChange={(e) => handleBrightness(Number(e.target.value))}
           style={{ flex: 1, accentColor: '#8b5cf6' }}
         />
         <span style={{ fontFamily: 'monospace', fontSize: 14, width: 36, textAlign: 'right' }}>
-          {brightness}%
+          {brightness}
         </span>
       </div>
 

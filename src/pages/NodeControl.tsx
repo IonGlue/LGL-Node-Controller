@@ -24,7 +24,7 @@ const ALL_TABS: TabDef[] = [
   { id: 'display', label: 'Display', section: 'display', component: DisplayTab },
   { id: 'scope', label: 'Scope', section: 'scope', component: ScopeTab },
   { id: 'decimator', label: 'Decimator', section: 'decimator', component: DecimatorTab },
-  { id: 'atem', label: 'ATEM', section: 'atem', component: AtemTab, comingSoon: true },
+  { id: 'atem', label: 'ATEM', section: 'atem', component: AtemTab },
   { id: 'system', label: 'System', section: 'system', component: SystemTab },
 ]
 
