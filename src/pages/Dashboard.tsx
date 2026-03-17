@@ -46,7 +46,7 @@ function NodeCard({ node }: { node: NodeSummary }) {
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 14 }}>
         <StatusDot online={online} />
         <span style={{ fontWeight: 600, fontSize: 15, flex: 1 }}>{node.name}</span>
-        {s?.mode && (
+        {s?.telemetry?.state && (
           <span
             style={{
               fontSize: 11,
@@ -58,7 +58,7 @@ function NodeCard({ node }: { node: NodeSummary }) {
               letterSpacing: '0.05em',
             }}
           >
-            {String(s.mode)}
+            {String(s.telemetry.state)}
           </span>
         )}
       </div>
@@ -67,14 +67,14 @@ function NodeCard({ node }: { node: NodeSummary }) {
 
       {/* Health badges */}
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        {s?.temperature != null && (
-          <Badge icon={<Thermometer size={12} />} label={`${Math.round(Number(s.temperature))}°C`} />
+        {s?.telemetry?.system?.cpu_temp_c != null && (
+          <Badge icon={<Thermometer size={12} />} label={`${Math.round(Number(s.telemetry.system.cpu_temp_c))}°C`} />
         )}
-        {s?.cpu_percent != null && (
-          <Badge icon={<Cpu size={12} />} label={`${Math.round(Number(s.cpu_percent))}%`} />
+        {s?.telemetry?.system?.cpu_load_1m != null && (
+          <Badge icon={<Cpu size={12} />} label={`${Number(s.telemetry.system.cpu_load_1m).toFixed(2)}`} />
         )}
-        {s?.uptime_secs != null && (
-          <Badge icon={<Clock size={12} />} label={formatUptime(Number(s.uptime_secs))} />
+        {s?.telemetry?.uptime_secs != null && (
+          <Badge icon={<Clock size={12} />} label={formatUptime(Number(s.telemetry.uptime_secs))} />
         )}
         {!online && (
           <Badge icon={<AlertCircle size={12} />} label="Offline" warn />
